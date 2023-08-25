@@ -1,12 +1,32 @@
+<?php        
+require_once 'cytomine_client.php';
 
-<!-- PROJECT LOGO -->
-<br />
-<p align="center">
-    <img src="./images/DeepLIIF_logo.png" width="50%">
-    <h3 align="center"><strong>Deep-Learning Inferred Multiplex Immunofluorescence for Immunohistochemical Image Quantification</strong></h3>
-    <p align="center">
-    <a href="https://rdcu.be/cKSBz">Nature MI'22 Link</a>
-    |
+$cytomine = new CytomineClient();
+
+// Connect to Cytomine 
+$cytomine->connect('host', 'public_key', 'private_key');
+
+// User data
+$username = 'test_user';
+$password = 'password123';
+$firstname = 'John';
+$lastname = 'Doe';
+
+// Create user object
+$user = new User();
+$user->setUsername($username);
+$user->setPassword($password);
+$user->setFirstname($firstname);
+$user->setLastname($lastname);
+
+// Set role 
+$user->setRole(User::ROLE_USER); 
+
+// Add user
+$new_user = $cytomine->addUser($user);
+
+// Print new user ID
+echo "Added user with ID: ". $new_user->getId();
     <a href="https://openaccess.thecvf.com/content/CVPR2022/html/Ghahremani_DeepLIIF_An_Online_Platform_for_Quantification_of_Clinical_Pathology_Slides_CVPR_2022_paper.html">CVPR'22 Link</a>
     |
     <a href="https://arxiv.org/abs/2305.16465">MICCAI'23 link</a>
